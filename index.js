@@ -7,13 +7,17 @@ const app = express();
 const server = http.createServer(app);
 
 const corsOptions = {
-    origin: 'https://robocon-pr.vercel.app',
+    origin: 'https://robocon-pr.vercel.app/',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
     credentials: true
 };
 
 app.use(cors(corsOptions));
+
+app.get("/",(req,res)=>{
+    res.json("Hello");
+})
 
 const io = new Server(server, {
     cors: corsOptions
