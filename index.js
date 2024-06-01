@@ -15,6 +15,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get("/",(req,res)=>{
+    res.json("Hello");
+})
+
 const io = new Server(server, {
     cors: corsOptions
 });
