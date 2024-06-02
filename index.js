@@ -1,10 +1,17 @@
 const express = require('express');
-const http = require('https');
+const http = require('http');
+const https=require('https');
+const fs=require('fs');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
 const app = express();
-const server = http.createServer(app);
+const options = {
+    key: fs.readFileSync('certifi/key.pem'),
+    cert: fs.readFileSync('certifi/cert.pem')
+};
+
+const server = https.createServer(options,app);
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -28,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-    origin: 'https://robocon-pr.vercel.app',
+    origin: 'https://localhost:3000',
     credentials: true, 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
