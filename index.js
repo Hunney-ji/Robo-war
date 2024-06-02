@@ -49,13 +49,13 @@ const io = new Server(server, {
 const users = {};
 const socketToRoom = {};
 
-io.use((socket, next) => {
-    const socketID = socket.handshake.auth.socketID;
-    if (socketID) {
-        socket.id = socketID;
-    }
-    next();
-});
+// io.use((socket, next) => {
+//     const socketID = socket.handshake.auth.socketID;
+//     if (socketID) {
+//         socket.id = socketID;
+//     }
+//     next();
+// });
 
 io.on('connection', socket => {
     console.log("User connected:", socket.id);
