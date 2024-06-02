@@ -7,11 +7,13 @@ const app = express();
 const server = http.createServer(app);
 
 const corsOptions = {
-    origin: '*',
+    origin: '*', // Allow all origins
+    credentials: true, 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
-    credentials: true
+    exposedHeaders: ['Access-Control-Allow-Origin'] // Expose the Access-Control-Allow-Origin header
 };
+
 
 app.use(cors(corsOptions));
 
