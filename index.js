@@ -105,5 +105,8 @@ io.on('connection', socket => {
     //     }
     // });
 });
+app.get("/crt",(req,res)=>{
+    res.send("hello");
+})
 
 server.listen(8000, () => console.log('Server is running on port 8000'));
