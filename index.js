@@ -1,23 +1,46 @@
 const express = require('express');
-const http = require('http');
+const http = require('https');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://robocon-pr.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Private-Network", true);
+  //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
+  res.setHeader("Access-Control-Max-Age", 7200);
+
+  next();
+});
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://robocon-pr.vercel.app',
     credentials: true, 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Access-Control-Allow-Origin'] // Expose the Access-Control-Allow-Origin header
 };
+
 
 app.use(cors(corsOptions));
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.json("Hello");
-})
+ });
 
 const io = new Server(server, {
     cors: corsOptions
@@ -83,7 +106,7 @@ io.on('connection', socket => {
     // });
 });
 app.get("/crt",(req,res)=>{
-    res.send("hello");
+    res.send("hello==");
 })
 
 server.listen(8000, () => console.log('Server is running on port 8000'));
