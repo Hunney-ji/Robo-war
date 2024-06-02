@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-    origin: 'https://localhost:3000',
+    origin: 'https://robocon-pr.vercel.app',
     credentials: true, 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
@@ -112,8 +112,8 @@ io.on('connection', socket => {
     //     }
     // });
 });
-app.get("/crt",(req,res)=>{
-    res.send("hello==");
-})
+// app.get("/crt",(req,res)=>{
+//     res.send("hello==");
+// })
 
 server.listen(8000, () => console.log('Server is running on port 8000'));
