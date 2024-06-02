@@ -7,10 +7,10 @@ const app = express();
 const server = http.createServer(app);
 
 const corsOptions = {
-    origin: 'https://robocon-pr.vercel.app/',
+    origin: 'http://localhost:3000',
+    credentials: true, 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
-    credentials: true
 };
 
 app.use(cors(corsOptions));
@@ -26,17 +26,17 @@ const io = new Server(server, {
 const users = {};
 const socketToRoom = {};
 
-io.use((socket, next) => {
-    const socketID = socket.handshake.auth.socketID;
-    if (socketID) {
-        socket.id = socketID;
-    }
-    next();
-});
+// io.use((socket, next) => {
+//     const socketID = socket.handshake.auth.socketID;
+//     if (socketID) {
+//         socket.id = socketID;
+//     }
+//     next();
+// });
 
 io.on('connection', socket => {
     console.log("User connected:", socket.id);
-
+    socket.emit("j","j");
     socket.on("join room", roomID => {
         if (users[roomID]) {
             if (!users[roomID].includes(socket.id)) {
@@ -82,5 +82,8 @@ io.on('connection', socket => {
     //     }
     // });
 });
+app.get("/crt",(req,res)=>{
+    res.send("hello");
+})
 
 server.listen(8000, () => console.log('Server is running on port 8000'));
