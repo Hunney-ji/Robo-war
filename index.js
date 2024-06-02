@@ -11,7 +11,6 @@ const options = {
     cert: fs.readFileSync('certifi/cert.pem')
 };
 
-const server = https.createServer(options,app);
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -44,6 +43,8 @@ const corsOptions = {
 
 
 app.use(cors(corsOptions));
+
+const server = https.createServer(options,app);
 
 app.get("/", (req, res) => {
     res.json("Hello");
