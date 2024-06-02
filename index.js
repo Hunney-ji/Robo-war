@@ -44,7 +44,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const server = https.createServer(options,app);
+const server = https.createServer(options,app).listen(8000);
 
 app.get("/", (req, res) => {
     res.json("Hello");
@@ -117,4 +117,4 @@ io.on('connection', socket => {
 //     res.send("hello==");
 // })
 
-server.listen(8000, () => console.log('Server is running on port 8000'));
+// server.listen(8000, () => console.log('Server is running on port 8000'));
