@@ -5,6 +5,8 @@ const fs=require('fs');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
+const PORT=process.env.PORT || 8000;
+
 const app = express();
 const options = {
     key: fs.readFileSync('certifi/key.pem'),
@@ -117,4 +119,4 @@ io.on('connection', socket => {
 //     res.send("hello==");
 // })
 
-server.listen(8000, () => console.log('Server is running on port 8000'));
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
